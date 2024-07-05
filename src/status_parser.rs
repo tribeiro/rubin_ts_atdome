@@ -35,7 +35,7 @@ const DROPOUT_DOOR_ENCODER_OPENED: &str = r"Dropout Encoder Opened: +(\d+)";
 const DOOR_MOVE_TIMEOUT: &str = r"Door Move Timeout.+: +(\d*\.?\d+)";
 
 #[derive(Debug)]
-struct StatusParser {
+pub struct StatusParser {
     pub main: Regex,
     pub drop: Regex,
     pub auto_shutdown: Regex,
@@ -122,11 +122,11 @@ impl StatusParser {
         })
     }
 
-    pub fn make_status(&self, lines: &[&str]) -> ATDomeResult<Status> {
+    pub fn make_status(self, lines: &[&str]) -> ATDomeResult<Status> {
         let length = lines.len();
-        if length != 25 && length != 27 {
+        if length != 27 && length != 28 {
             return Err(ATDomeError::new(&format!(
-                "Got {length}; expected 25 or 27."
+                "Got {length}; expected 26 or 28."
             )));
         }
         let main_door_pct: f32 = StatusParser::unwrap_capture(&lines[0], &self.main, 1)?;

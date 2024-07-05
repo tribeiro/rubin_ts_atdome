@@ -1,4 +1,4 @@
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone, Copy)]
 pub struct Status {
     pub auto_shutdown_enabled: bool,
     pub az_home_switch: bool,
@@ -28,4 +28,40 @@ pub struct Status {
     pub sensor_code: usize,
     pub tolerance: f32,
     pub watchdog_timer: f32,
+}
+
+impl Status {
+    pub fn as_string(&self) -> String {
+        format!(
+            "MAIN CLOSED 000
+DROP CLOSED 000
+[OFF] 00
+POSN {}
+-- {:03} 
+Dome not homed
+Emergency Stop Active: 0
+Top Comm Link OK:    1
+Home Azimuth: 10.00
+High Speed (degrees):  5.00
+Coast (degrees): 0.50
+Tolerance (degrees): 1.00
+Encoder Counts per 360: 4018143232
+Encoder Counts:  111615089
+Last Azimuth GoTo: {} 
+Azimuth Move Timeout (secs): 120
+Rain-Snow enabled:  1
+Cloud Sensor enabled: 1
+Watchdog Reset Time: 600
+Dropout Timer: 5
+Reverse Delay: 4
+Main Door Encoder Closed: 118449181478
+Main Door Encoder Opened: 8287616388
+Dropout Encoder Closed: 5669776578
+Dropout Encoder Opened: 5710996184
+Door Move Timeout (secs): 360
+Dome has been homed: False
+",
+            self.az_pos, self.move_code, self.last_azimuth_goto,
+        )
+    }
 }

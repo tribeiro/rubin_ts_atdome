@@ -1,11 +1,11 @@
 use kafka::error as kafka_error;
+use regex::Error as RegexError;
 use salobj::error::errors::SalObjError;
 use std::{
     error::Error,
     fmt::{self, Debug},
     result,
 };
-use tokio::time::Timeout;
 
 pub type ATDomeResult<T> = result::Result<T, ATDomeError>;
 
@@ -54,6 +54,12 @@ impl From<SalObjError> for ATDomeError {
 
 impl From<kafka_error::Error> for ATDomeError {
     fn from(item: kafka_error::Error) -> ATDomeError {
+        ATDomeError::new(&item.to_string())
+    }
+}
+
+impl From<RegexError> for ATDomeError {
+    fn from(item: RegexError) -> ATDomeError {
         ATDomeError::new(&item.to_string())
     }
 }
