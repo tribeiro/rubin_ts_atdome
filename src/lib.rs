@@ -1,3 +1,4 @@
+pub mod atdome_model;
 pub mod error;
 pub mod mock_controller;
 pub mod move_code;
