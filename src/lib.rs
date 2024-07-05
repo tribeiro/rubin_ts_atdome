@@ -1,3 +1,4 @@
+pub mod atdome_cmd_regex;
 pub mod atdome_model;
 pub mod error;
 pub mod mock_controller;
