@@ -1,0 +1,15 @@
+[package]
+name = "rubin_ts_atdome"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+regex = "1.10.3"
+salobj = {path = "../rs_salobj"}
+base_topic_derive = {path = "../rs_salobj/base_topic_derive"}
+handle_command = {path = "../rs_salobj/handle_command"}
+tokio = { version = "1.36.0", features = ["full"] }
+apache-avro = "0.14.0"
+kafka = "0.9"
+log = "0.4.21"
+
